@@ -18,13 +18,27 @@ function displayTimeSpent() {
     displayData("timeSpent", timeInfo);
 }
 
-// Function to display tracked data
 function displayData(type, info) {
-    const dataInfoDiv = document.getElementById("data-info");
-    const infoDiv = document.createElement("div");
-    infoDiv.className = "info-section";
-    infoDiv.innerText = info;
-    dataInfoDiv.appendChild(infoDiv);
+    // Check if there's already an element for this data type
+    const existingElement = document.getElementById(type);
+    
+    if (existingElement) {
+        // If the element exists, update its content with new info
+        existingElement.innerText = info;
+    } else {
+        // If it doesn't exist, create a new element for this data type
+        const dataInfoDiv = document.getElementById("data-info");
+        const infoDiv = document.createElement("div");
+        
+        // Set an ID for this new element based on the data type
+        infoDiv.id = type;
+        infoDiv.className = "info-section";
+        infoDiv.innerText = info;
+        
+        // Add this new element to the data-info section
+        dataInfoDiv.appendChild(infoDiv);
+    }
+}
 }
 
 // Run the tracking functions
@@ -33,3 +47,18 @@ displayDeviceInfo();
 
 // Update time spent every second
 setInterval(displayTimeSpent, 1000);
+// Function to track and display mouse position
+document.addEventListener("mousemove", (event) => {
+    const mouseInfo = `Mouse at: X=${event.pageX}, Y=${event.pageY}`;
+    displayData("mouseMove", mouseInfo);
+});
+// Function to track and display scroll position
+window.addEventListener("scroll", () => {
+    const scrollPosition = `Scroll position: ${window.scrollY}px`;
+    displayData("scroll", scrollPosition);
+});
+// Function to track clicks on a specific button
+document.getElementById("trackButton").addEventListener("click", () => {
+    const clickInfo = "Button clicked!";
+    displayData("click", clickInfo);
+});
