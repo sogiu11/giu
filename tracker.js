@@ -38,8 +38,6 @@ function displayData(type, info) {
         // Add this new element to the data-info section
         dataInfoDiv.appendChild(infoDiv);
     }
-}
-}
 
 // Run the tracking functions
 displayLocation();
